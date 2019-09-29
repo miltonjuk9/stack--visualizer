@@ -1,11 +1,12 @@
-version: "2"
+version: "3"
 
 services:
-  viz:
-    build: .
-    volumes:
-    - "/var/run/docker.sock:/var/run/docker.sock"
+  visualizer:
+    image: dockersamples/visualizer:stable
     ports:
-    - "5000:5000"
-    placement:
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
         constraints: [node.role == manager]

@@ -1,6 +1,11 @@
-docker service create \
-  --name=viz \
-  --publish=8080:8080/tcp \
-  --constraint=node.role==manager \
-  --mount=type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock \
-  dockersamples/visualizer
+version: "3"
+
+services:
+  viz:
+    build: .
+    volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock"
+    ports:
+    - "5000:5000"
+    placement:
+        constraints: [node.role == manager]
